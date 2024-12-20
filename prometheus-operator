@@ -1,11 +1,14 @@
 
 kubectl create -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/bundle.yaml
 
-then install 1prom_rbac.yaml
+--then install 1prom_rbac.yaml
 kubectl apply -f prom_rbac.yaml
-then install 2prometheus.yaml
+--then install 2prometheus.yaml
 kubectl apply -f prometheus.yaml
 
 kubectl get prometheus
-now install 3prometheus_svc.yaml
 
+--now install 3prometheus_svc.yaml
+kubectl apply -f prometheus_svc.yaml
+--To access the Prometheus server, forward a local port to the Prometheus service running inside of the Kubernetes Cluster:
+kubectl port-forward svc/prometheus 9090

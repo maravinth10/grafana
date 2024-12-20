@@ -1,5 +1,11 @@
 
 kubectl create -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/master/bundle.yaml
 
+then install 1prom_rbac.yaml
+kubectl apply -f prom_rbac.yaml
+then install 2prometheus.yaml
+kubectl apply -f prometheus.yaml
 
+kubectl get prometheus
+now install 3prometheus_svc.yaml
 

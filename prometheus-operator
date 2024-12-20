@@ -12,3 +12,7 @@ kubectl get prometheus
 kubectl apply -f prometheus_svc.yaml
 --To access the Prometheus server, forward a local port to the Prometheus service running inside of the Kubernetes Cluster:
 kubectl port-forward svc/prometheus 9090
+--then 4prometheus_servicemonitor.yaml
+kubectl apply -f prometheus_servicemonitor.yaml
+kubectl --namespace default port-forward svc/prometheus 9090 
+

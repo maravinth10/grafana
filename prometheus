@@ -1,0 +1,15 @@
+Install helm
+https://github.com/helm/helm/releases
+curl -O https://get.helm.sh/helm-v3.16.2-linux-amd64.tar.gz
+tar -zvxf helm-v3.16.2-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin/helm
+
+Install prometheus
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+##use below cmd to install prometheus pods
+helm install kube-prometheus-stack \
+--create-namespace \
+--namespace kube-prometheus-stack \
+prometheus-community/kube-prometheus-stack

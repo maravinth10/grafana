@@ -4,6 +4,7 @@ curl -O https://get.helm.sh/helm-v3.16.2-linux-amd64.tar.gz
 tar -zvxf helm-v3.16.2-linux-amd64.tar.gz
 sudo mv linux-amd64/helm /usr/local/bin/helm
 
+https://spacelift.io/blog/prometheus-kubernetes
 Install prometheus
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update

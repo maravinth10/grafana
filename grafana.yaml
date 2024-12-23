@@ -1,3 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      nodeSelector:
+         kubernetes.io/hostname: k8sworker1
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: grafana
+          mountPath: "/usr/share/grafana"
+      volumes:
+      - name: grafana
+        persistentVolumeClaim:
+          claimName: grafana-claim
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -13,24 +42,3 @@ spec:
   selector:
     app: grafana
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: grafana
-  labels:
-    app: grafana
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: grafana
-  template:
-    metadata:
-      labels:
-        app: grafana
-    spec:
-      containers:
-      - name: grafana
-        image: grafana/grafana
-        ports:
-        - containerPort: 3000

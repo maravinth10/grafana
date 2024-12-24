@@ -14,26 +14,33 @@ spec:
     spec:
       nodeSelector:
          kubernetes.io/hostname: k8sworker1
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox:1.31
+        command: ["sh", "-c", "echo Initializing > /tmp/initdone; chmod 333 /tmp/initdone;"]
+        volumeMounts:
+        - name: grafana-data
+          mountPath: /tmp
       containers:
       - name: grafana
         image: grafana/grafana
         ports:
         - containerPort: 3000
         volumeMounts:
-        - name: grafana
-          mountPath: "/usr/share/grafana/aravinth"
+        - name: grafana-data
+          mountPath: "/home/grafana/aravinth1"
          # subPath: aravinth
-        - name: grafana
-          mountPath: "/var/lib/grafana/aravinth2"   
+        - name: grafana-data
+          mountPath: "/usr/share/grafana/aravinth2"
       volumes:
-      - name: grafana
+      - name: grafana-data
         persistentVolumeClaim:
           claimName: grafana-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: grafana
+  name: grafanasvc
   labels:
     app: grafana
 spec:
